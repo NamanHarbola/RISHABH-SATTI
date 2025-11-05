@@ -180,14 +180,14 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
             
-            {/* Right Content - 3D Model */}
+            {/* Right Content - Hero Media */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="relative"
+              className="relative h-[500px] md:h-[700px]"
             >
-              <Hero3D selectedColor={selectedColor} />
+              <HeroMedia />
             </motion.div>
           </div>
         </div>
