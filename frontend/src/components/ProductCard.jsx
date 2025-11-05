@@ -75,7 +75,7 @@ export default function ProductCard({ product, index }) {
     >
       <Card
         className="group cursor-pointer overflow-hidden border-border hover:shadow-lg transition-all duration-300"
-        onClick={() => navigate(`/product/${product.id}`)}
+        onClick={handleProductClick}
       >
         <div className="relative aspect-[3/4] overflow-hidden bg-muted">
           {/* Product Image */}
