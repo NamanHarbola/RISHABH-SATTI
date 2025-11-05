@@ -279,9 +279,9 @@ export default function HomePage() {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <ScrollReveal>
-            <h2 className="text-4xl sm:text-5xl font-bold">
-              Join Our Exclusive Community
-            </h2>
+              <h2 className="text-4xl sm:text-5xl font-bold">
+                Join Our Exclusive Community
+              </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
