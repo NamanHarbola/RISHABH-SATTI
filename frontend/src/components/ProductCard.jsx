@@ -11,6 +11,27 @@ export default function ProductCard({ product, index }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleProductClick = () => {
+    // Save product data to localStorage for the product page
+    const productData = {
+      ...product,
+      colors: product.colors || ['#1a202c'],
+      sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+      rating: 4.8,
+      reviews: 248,
+      description: `Experience the perfect blend of style and comfort with our ${product.name}. Crafted from premium materials.`,
+      features: [
+        'Premium Quality Materials',
+        'Expert Craftsmanship',
+        'Sustainable Production',
+        'Perfect Fit Guarantee',
+      ],
+    };
+    
+    localStorage.setItem(`product_${product.id}`, JSON.stringify(productData));
+    navigate(`/product/${product.id}`);
+  };
+
   const handleAddToCart = (e) => {
     e.stopPropagation();
     
