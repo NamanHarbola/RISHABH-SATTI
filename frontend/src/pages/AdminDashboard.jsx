@@ -133,22 +133,70 @@ export default function AdminDashboard() {
         p.id === editingProduct.id ? { ...formData, id: editingProduct.id } : p
       );
       saveProducts(updatedProducts);
+      
+      // Save 3D model separately
+      if (formData.model3D) {
+        save3DModel(editingProduct.id, formData.model3D);
+      }
+      
       toast.success('Product updated successfully!');
     } else {
       // Add new product
+      const productId = Date.now();
       const newProduct = {
         ...formData,
-        id: Date.now(),
+        id: productId,
         price: parseFloat(formData.price),
         originalPrice: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
         colors: [formData.colors],
       };
       saveProducts([...products, newProduct]);
+      
+      // Save 3D model separately
+      if (formData.model3D) {
+        save3DModel(productId, formData.model3D);
+      }
+      
       toast.success('Product added successfully!');
     }
     
     resetForm();
     setIsDialogOpen(false);
+  };
+
+  const save3DModel = (productId, modelFile) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const existingModels = JSON.parse(localStorage.getItem('product3DModels') || '[]');
+      const updatedModels = existingModels.filter(m => m.productId !== productId);
+      updatedModels.push({
+        productId,
+        modelUrl: reader.result,
+        fileName: modelFile.name
+      });
+      localStorage.setItem('product3DModels', JSON.stringify(updatedModels));
+    };
+    reader.readAsDataURL(modelFile);
+  };
+
+  const handle3DModelChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.name.endsWith('.glb') && !file.name.endsWith('.gltf')) {
+        toast.error('Please upload a GLB or GLTF file');
+        return;
+      }
+      
+      // Validate file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error('3D model file size must be less than 10MB');
+        return;
+      }
+      
+      setFormData({ ...formData, model3D: file });
+      toast.success('3D model selected');
+    }
   };
 
   const handleEdit = (product) => {
