@@ -45,7 +45,7 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 className="text-2xl font-bold"
               >
-                <span className="gradient-text-gold">LUXE</span>
+                <span className="gradient-text-green">LUXE</span>
                 <span className="text-foreground">3D</span>
               </motion.div>
             </Link>
