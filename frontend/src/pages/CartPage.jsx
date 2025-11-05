@@ -191,7 +191,7 @@ export default function CartPage() {
                           <Plus className="w-3 h-3" />
                         </Button>
                       </div>
-                      <p className="text-lg font-bold">\u20b9{(item.price * item.quantity).toLocaleString('en-IN')}</p>
+                      <p className="text-lg font-bold">{'\u20B9'}{(item.price * item.quantity).toLocaleString('en-IN')}</p>
                     </div>
                   </CardContent>
                 </Card>
