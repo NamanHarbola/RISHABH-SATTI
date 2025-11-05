@@ -6,7 +6,7 @@
 
 @layer base {
     :root {
-        /* Luxury Fashion Color Palette - Deep Navy & Gold */
+        /* Luxury Fashion Color Palette - Royal Green & White */
         --background: 0 0% 100%;
         --foreground: 222 47% 11%;
         
@@ -15,18 +15,18 @@
         --primary-foreground: 0 0% 98%;
         --primary-light: 222 40% 25%;
         
-        /* Secondary - Warm Gold */
-        --secondary: 38 92% 50%;
-        --secondary-foreground: 222 47% 11%;
-        --secondary-light: 42 100% 70%;
+        /* Secondary - Royal Green */
+        --secondary: 142 76% 36%;
+        --secondary-foreground: 0 0% 98%;
+        --secondary-light: 142 65% 50%;
         
-        /* Accent - Rich Burgundy */
-        --accent: 350 65% 45%;
+        /* Accent - Emerald Green */
+        --accent: 158 64% 52%;
         --accent-foreground: 0 0% 98%;
-        --accent-light: 350 55% 65%;
+        --accent-light: 158 55% 65%;
         
-        /* Muted - Soft Beige */
-        --muted: 30 20% 92%;
+        /* Muted - Soft Gray */
+        --muted: 220 14% 96%;
         --muted-foreground: 222 20% 40%;
         
         --card: 0 0% 100%;
@@ -37,19 +37,19 @@
         --destructive: 0 84% 60%;
         --destructive-foreground: 0 0% 98%;
         
-        --border: 30 15% 88%;
-        --input: 30 15% 88%;
+        --border: 220 14% 91%;
+        --input: 220 14% 91%;
         --ring: 222 47% 11%;
         
         /* Custom Design Tokens */
         --gradient-hero: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(222 40% 25%) 100%);
-        --gradient-accent: linear-gradient(135deg, hsl(350 65% 45%) 0%, hsl(350 55% 65%) 100%);
-        --gradient-gold: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(42 100% 70%) 100%);
+        --gradient-accent: linear-gradient(135deg, hsl(158 64% 52%) 0%, hsl(158 55% 65%) 100%);
+        --gradient-green: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 65% 50%) 100%);
         
         --shadow-soft: 0 2px 8px -2px hsl(222 47% 11% / 0.08);
         --shadow-medium: 0 8px 24px -8px hsl(222 47% 11% / 0.12);
         --shadow-large: 0 16px 48px -16px hsl(222 47% 11% / 0.18);
-        --shadow-glow: 0 0 40px hsl(38 92% 50% / 0.2);
+        --shadow-glow: 0 0 40px hsl(142 76% 36% / 0.2);
         
         --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
