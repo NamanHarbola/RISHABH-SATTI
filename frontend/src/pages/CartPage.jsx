@@ -40,8 +40,8 @@ export default function CartPage() {
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = subtotal > 100 ? 0 : 10;
-  const tax = subtotal * 0.1;
+  const shipping = subtotal > 5000 ? 0 : 99;
+  const tax = subtotal * 0.18; // 18% GST
   const total = subtotal + shipping + tax;
 
   const handleCheckout = () => {
