@@ -241,7 +241,7 @@ export default function HomePage() {
           <ScrollReveal>
             <div className="text-center mb-16 space-y-4">
               <h2 className="text-4xl sm:text-5xl font-bold">
-                Featured <span className="gradient-text-green">Collection</span>
+                                Featured <span className="gradient-text-green">Collection</span>
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Discover our handpicked selection of premium garments, crafted with
