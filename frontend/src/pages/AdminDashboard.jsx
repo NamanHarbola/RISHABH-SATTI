@@ -644,6 +644,13 @@ export default function AdminDashboard() {
             )}
           </CardContent>
         </Card>
+      </TabsContent>
+
+      {/* Coupons Tab */}
+      <TabsContent value="coupons">
+        <CouponManagement />
+      </TabsContent>
+    </Tabs>
       </div>
     </div>
   );
