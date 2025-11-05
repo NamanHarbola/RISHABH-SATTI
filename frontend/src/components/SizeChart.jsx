@@ -16,12 +16,12 @@ export default function SizeChart() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant=\"outline\" size=\"sm\" className=\"w-full sm:w-auto\">
-          <Ruler className=\"w-4 h-4 mr-2\" />
+        <Button variant="outline" size="sm" className="w-full sm:w-auto">
+          <Ruler className="w-4 h-4 mr-2" />
           Size Chart
         </Button>
       </DialogTrigger>
-      <DialogContent className=\"max-w-3xl max-h-[90vh] overflow-y-auto\">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className=\"text-2xl\">Size Chart</DialogTitle>
         </DialogHeader>
