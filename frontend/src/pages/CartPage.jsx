@@ -56,7 +56,7 @@ export default function CartPage() {
     const options = {
       key: 'rzp_test_YOUR_KEY_ID', // Replace with your Razorpay test/live key
       amount: Math.round(total * 100), // Amount in paise
-      currency: 'USD',
+      currency: 'INR',
       name: 'LUXE3D',
       description: 'Fashion Purchase',
       image: '/logo.png',
@@ -79,7 +79,7 @@ export default function CartPage() {
         contact: '9999999999'
       },
       theme: {
-        color: '#fbbf24'
+        color: '#10b981'
       },
       modal: {
         ondismiss: function() {
