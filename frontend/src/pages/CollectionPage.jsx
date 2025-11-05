@@ -37,7 +37,7 @@ export default function CollectionPage() {
             className="text-center space-y-4"
           >
             <h1 className="text-5xl sm:text-6xl font-bold capitalize">
-              {category} <span className="gradient-text-gold">Collection</span>
+              {category} <span className="gradient-text-green">Collection</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Discover our curated selection of premium {category} pieces
