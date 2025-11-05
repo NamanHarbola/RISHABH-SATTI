@@ -315,7 +315,7 @@ export default function AdminDashboard() {
                       <Input
                         id="heroFile"
                         type="file"
-                        accept="image/*,video/mp4,video/webm"
+                        accept="image/*,video/mp4,video/webm,video/ogg"
                         onChange={handleHeroFileChange}
                         className="cursor-pointer"
                       />
@@ -326,8 +326,14 @@ export default function AdminDashboard() {
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Supported: Images (JPG, PNG, WebP) and Videos (MP4, WebM). Max 50MB.
+                      Supported: Images (JPG, PNG, WebP) and Videos (MP4, WebM, OGG). Max 50MB.
                     </p>
+                    {heroFile && (
+                      <div className="text-xs space-y-1">
+                        <p className="text-secondary font-medium">✓ File selected: {heroFile.name}</p>
+                        <p className="text-muted-foreground">Type: {heroContent.type}</p>
+                      </div>
+                    )}
                   </div>
                   
                   {heroContent.type === 'image' && (
