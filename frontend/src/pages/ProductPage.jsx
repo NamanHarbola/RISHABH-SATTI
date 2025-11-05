@@ -83,25 +83,7 @@ export default function ProductPage() {
             transition={{ duration: 0.6 }}
           >
             <div className="sticky top-24">
-              <div className="relative aspect-square bg-muted rounded-2xl overflow-hidden">
-                <Canvas shadows>
-                  <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={50} />
-                  <OrbitControls
-                    enablePan={false}
-                    minDistance={4}
-                    maxDistance={8}
-                  />
-                  <ambientLight intensity={0.5} />
-                  <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-                  <ProductModel color={selectedColor} />
-                  <ContactShadows position={[0, -2, 0]} opacity={0.4} scale={8} blur={2} far={4} />
-                  <Environment preset="city" />
-                </Canvas>
-                <div className="absolute bottom-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-2 rounded-full text-sm">
-                  <RotateCcw className="w-4 h-4 inline mr-2" />
-                  Drag to rotate
-                </div>
-              </div>
+              <Product3DViewer productId={id} />
             </div>
           </motion.div>
 
