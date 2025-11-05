@@ -13,6 +13,27 @@ export default function ProductCard({ product, index }) {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    
+    // Get existing cart
+    const existingCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+    
+    // Create cart item
+    const cartItem = {
+      id: Date.now(),
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      image: product.image,
+      selectedSize: 'M',
+      selectedColor: product.colors?.[0] || '#1a202c',
+      quantity: 1,
+    };
+    
+    // Add to cart
+    existingCart.push(cartItem);
+    localStorage.setItem('cartItems', JSON.stringify(existingCart));
+    
     toast.success(`${product.name} added to cart!`);
   };
 
