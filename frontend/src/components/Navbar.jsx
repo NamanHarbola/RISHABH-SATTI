@@ -68,10 +68,20 @@ export default function Navbar() {
               <Button variant="ghost" size="icon" className="hidden sm:flex">
                 <Search className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="hidden sm:flex">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hidden sm:flex"
+                onClick={() => navigate('/admin/login')}
+              >
                 <User className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative"
+                onClick={() => navigate('/cart')}
+              >
                 <ShoppingBag className="w-5 h-5" />
                 {cartCount > 0 && (
                   <motion.span
