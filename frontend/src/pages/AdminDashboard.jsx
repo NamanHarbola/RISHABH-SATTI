@@ -29,6 +29,7 @@ export default function AdminDashboard() {
     image: '',
     colors: '#1a202c',
     badge: '',
+    model3D: null,
   });
 
   useEffect(() => {
