@@ -15,7 +15,10 @@ export default function ProductCard({ product, index }) {
     // Save product data to localStorage for the product page
     const productData = {
       ...product,
-      colors: product.colors || ['#1a202c'],
+      colors: (product.colors || ['#1a202c']).map((color, idx) => ({
+        name: idx === 0 ? 'Navy' : idx === 1 ? 'Charcoal' : idx === 2 ? 'Forest' : 'Gray',
+        value: color
+      })),
       sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
       rating: 4.8,
       reviews: 248,
