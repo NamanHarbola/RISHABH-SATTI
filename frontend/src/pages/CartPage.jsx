@@ -11,6 +11,9 @@ export default function CartPage() {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponError, setCouponError] = useState('');
 
   useEffect(() => {
     // Load cart from localStorage
