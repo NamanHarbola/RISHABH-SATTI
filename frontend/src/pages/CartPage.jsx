@@ -271,6 +271,22 @@ export default function CartPage() {
                     <span className="text-muted-foreground">Subtotal</span>
                     <span className="font-medium">{'\u20B9'}{subtotal.toLocaleString('en-IN')}</span>
                   </div>
+                  
+                  {appliedCoupon && (
+                    <div className="flex justify-between text-sm text-green-600">
+                      <span className="flex items-center">
+                        Discount ({appliedCoupon.code})
+                        <button
+                          onClick={removeCoupon}
+                          className="ml-2 text-xs underline hover:no-underline"
+                        >
+                          Remove
+                        </button>
+                      </span>
+                      <span className="font-medium">-{'\u20B9'}{Math.round(discount).toLocaleString('en-IN')}</span>
+                    </div>
+                  )}
+                  
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Shipping</span>
                     <span className="font-medium">
@@ -289,6 +305,31 @@ export default function CartPage() {
                     <span>{'\u20B9'}{Math.round(total).toLocaleString('en-IN')}</span>
                   </div>
                 </div>
+
+                {/* Coupon Code Section */}
+                {!appliedCoupon && (
+                  <div className="space-y-2 pt-4 border-t">
+                    <Label htmlFor="coupon">Have a coupon?</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        id="coupon"
+                        value={couponCode}
+                        onChange={(e) => {
+                          setCouponCode(e.target.value.toUpperCase());
+                          setCouponError('');
+                        }}
+                        placeholder="Enter coupon code"
+                        className="uppercase"
+                      />
+                      <Button onClick={applyCoupon} variant="outline">
+                        Apply
+                      </Button>
+                    </div>
+                    {couponError && (
+                      <p className="text-xs text-destructive">{couponError}</p>
+                    )}
+                  </div>
+                )}
 
                 <Button
                   className="w-full mt-6"
