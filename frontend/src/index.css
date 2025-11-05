@@ -143,8 +143,8 @@
 
 @layer components {
     /* Gradient text */
-    .gradient-text-gold {
-        background: var(--gradient-gold);
+    .gradient-text-green {
+        background: var(--gradient-green);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
