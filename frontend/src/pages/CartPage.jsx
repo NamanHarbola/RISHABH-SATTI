@@ -208,24 +208,24 @@ export default function CartPage() {
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-medium">\u20b9{subtotal.toLocaleString('en-IN')}</span>
+                    <span className="font-medium">{'\u20B9'}{subtotal.toLocaleString('en-IN')}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Shipping</span>
                     <span className="font-medium">
-                      {shipping === 0 ? 'FREE' : `\u20b9${shipping}`}
+                      {shipping === 0 ? 'FREE' : `${'\u20B9'}${shipping}`}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Tax (GST 18%)</span>
-                    <span className="font-medium">\u20b9{Math.round(tax).toLocaleString('en-IN')}</span>
+                    <span className="font-medium">{'\u20B9'}{Math.round(tax).toLocaleString('en-IN')}</span>
                   </div>
                   
                   <Separator />
                   
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span>\u20b9{Math.round(total).toLocaleString('en-IN')}</span>
+                    <span>{'\u20B9'}{Math.round(total).toLocaleString('en-IN')}</span>
                   </div>
                 </div>
 
