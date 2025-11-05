@@ -18,6 +18,8 @@ export default function AdminDashboard() {
   const [isHeroDialogOpen, setIsHeroDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [heroContent, setHeroContent] = useState({ type: 'image', url: '', alt: '' });
+  const [heroFile, setHeroFile] = useState(null);
+  const [heroPreview, setHeroPreview] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     category: '',
