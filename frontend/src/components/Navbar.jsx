@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, ShoppingBag, Search, User } from 'lucide-react';
+import { Menu, X, ShoppingBag, Search, User, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import UserAuthDialog from './UserAuthDialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { toast } from 'sonner';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [cartCount] = useState(3);
 
   useEffect(() => {
@@ -15,8 +26,22 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
+    
+    // Check if user is logged in
+    const userData = localStorage.getItem('currentUser');
+    if (userData) {
+      setCurrentUser(JSON.parse(userData));
+    }
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('isUserAuthenticated');
+    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
+    toast.success('Logged out successfully');
+  };
 
   const navLinks = [
     { name: 'New Arrivals', path: '/collection/new' },
