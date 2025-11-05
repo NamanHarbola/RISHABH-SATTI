@@ -1,33 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import { ChevronLeft, ShoppingCart, Heart, Share2, Star, Truck, Shield, RotateCcw } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-
-function ProductModel({ color }) {
-  const meshRef = useRef();
-
-  return (
-    <group>
-      <mesh ref={meshRef}>
-        <boxGeometry args={[2, 2.5, 0.3]} />
-        <meshStandardMaterial color={color} roughness={0.4} metalness={0.1} />
-      </mesh>
-      <mesh position={[-1.2, 0.5, 0]} rotation={[0, 0, 0.3]}>
-        <boxGeometry args={[0.8, 0.6, 0.3]} />
-        <meshStandardMaterial color={color} roughness={0.4} metalness={0.1} />
-      </mesh>
-      <mesh position={[1.2, 0.5, 0]} rotation={[0, 0, -0.3]}>
-        <boxGeometry args={[0.8, 0.6, 0.3]} />
-        <meshStandardMaterial color={color} roughness={0.4} metalness={0.1} />
-      </mesh>
-    </group>
-  );
-}
+import Product3DViewer from '../components/Product3DViewer';
+import SizeChart from '../components/SizeChart';
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -39,8 +18,8 @@ export default function ProductPage() {
 
   const product = {
     name: 'Premium Designer T-Shirt',
-    price: 129,
-    originalPrice: 179,
+    price: 10699,
+    originalPrice: 14799,
     rating: 4.8,
     reviews: 248,
     description: 'Experience unparalleled comfort with our premium designer t-shirt. Crafted from the finest organic cotton, this piece combines luxury with sustainability.',
