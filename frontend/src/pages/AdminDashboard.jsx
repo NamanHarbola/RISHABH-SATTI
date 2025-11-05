@@ -180,6 +180,119 @@ export default function AdminDashboard() {
           ))}
         </div>
 
+        {/* Hero Content Management */}
+        <Card className="mb-8">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>Hero Content Management</CardTitle>
+            <Dialog open={isHeroDialogOpen} onOpenChange={setIsHeroDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline">
+                  <Edit className="w-4 h-4 mr-2" />
+                  Edit Hero
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Edit Hero Content</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="heroType">Content Type</Label>
+                    <Select value={heroContent.type} onValueChange={(value) => setHeroContent({ ...heroContent, type: value })}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="image">Image</SelectItem>
+                        <SelectItem value="video">Video</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="heroUrl">{heroContent.type === 'video' ? 'Video' : 'Image'} URL</Label>
+                    <Input
+                      id="heroUrl"
+                      value={heroContent.url}
+                      onChange={(e) => setHeroContent({ ...heroContent, url: e.target.value })}
+                      placeholder="https://..."
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      {heroContent.type === 'video' ? 'Enter direct video URL (.mp4)' : 'Enter image URL from Unsplash or similar'}
+                    </p>
+                  </div>
+                  {heroContent.type === 'image' && (
+                    <div className="space-y-2">
+                      <Label htmlFor="heroAlt">Alt Text</Label>
+                      <Input
+                        id="heroAlt"
+                        value={heroContent.alt}
+                        onChange={(e) => setHeroContent({ ...heroContent, alt: e.target.value })}
+                        placeholder="Fashion Model"
+                      />
+                    </div>
+                  )}
+                  {heroContent.url && (
+                    <div className="space-y-2">
+                      <Label>Preview</Label>
+                      <div className="w-full h-48 rounded-lg overflow-hidden bg-muted">
+                        {heroContent.type === 'video' ? (
+                          <video src={heroContent.url} className="w-full h-full object-cover" muted />
+                        ) : (
+                          <img src={heroContent.url} alt="Preview" className="w-full h-full object-cover" />
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex gap-2 justify-end pt-4">
+                    <Button variant="outline" onClick={() => setIsHeroDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={saveHeroContent}>
+                      Save Hero Content
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Current Hero Content</p>
+                <div className="w-full h-64 rounded-lg overflow-hidden bg-muted">
+                  {heroContent.url ? (
+                    heroContent.type === 'video' ? (
+                      <video src={heroContent.url} className="w-full h-full object-cover" muted autoPlay loop />
+                    ) : (
+                      <img src={heroContent.url} alt={heroContent.alt} className="w-full h-full object-cover" />
+                    )
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                      No hero content set
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm font-medium">Type</p>
+                  <p className="text-sm text-muted-foreground capitalize">{heroContent.type || 'Not set'}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium">URL</p>
+                  <p className="text-sm text-muted-foreground break-all">{heroContent.url || 'Not set'}</p>
+                </div>
+                {heroContent.type === 'image' && heroContent.alt && (
+                  <div>
+                    <p className="text-sm font-medium">Alt Text</p>
+                    <p className="text-sm text-muted-foreground">{heroContent.alt}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Products Section */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
