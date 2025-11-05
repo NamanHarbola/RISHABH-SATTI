@@ -114,10 +114,10 @@ export default function ProductPage() {
                 </span>
               </div>
               <div className="flex items-baseline space-x-3">
-                <span className="text-3xl font-bold">${product.price}</span>
+                <span className="text-3xl font-bold">\u20b9{product.price.toLocaleString('en-IN')}</span>
                 {product.originalPrice && (
                   <span className="text-xl text-muted-foreground line-through">
-                    ${product.originalPrice}
+                    \u20b9{product.originalPrice.toLocaleString('en-IN')}
                   </span>
                 )}
                 {product.originalPrice && (
