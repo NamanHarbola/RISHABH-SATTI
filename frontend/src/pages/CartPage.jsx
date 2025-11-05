@@ -240,7 +240,7 @@ export default function CartPage() {
 
                 <div className="text-xs text-center text-muted-foreground mt-4">
                   <p>Secure payment powered by Razorpay</p>
-                  <p className="mt-1">Free shipping on orders over \u20b95,000</p>
+                  <p className="mt-1">Free shipping on orders over {'\u20B9'}5,000</p>
                 </div>
               </CardContent>
             </Card>
