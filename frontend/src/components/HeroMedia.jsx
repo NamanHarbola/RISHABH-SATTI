@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, Upload } from 'lucide-react';
 import { Button } from './ui/button';
 
 export default function HeroMedia() {
@@ -36,17 +36,12 @@ export default function HeroMedia() {
 
   if (!heroContent) {
     return (
-      <div className="w-full h-full bg-muted animate-pulse rounded-2xl" />
+      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 animate-pulse" />
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8 }}
-      className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl"
-    >
+    <div className="relative w-full h-full">
       {heroContent.type === 'video' ? (
         <>
           <video
@@ -63,7 +58,7 @@ export default function HeroMedia() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute bottom-4 right-4 bg-background/80 backdrop-blur-sm hover:bg-background"
+            className="absolute bottom-6 right-6 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white z-20"
             onClick={handleVideoToggle}
           >
             {isPlaying ? (
@@ -74,17 +69,11 @@ export default function HeroMedia() {
           </Button>
         </>
       ) : (
-        <motion.img
-          src={heroContent.url}
-          alt={heroContent.alt || 'Hero'}
-          className="w-full h-full object-cover"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.6 }}
+        <div 
+          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroContent.url})` }}
         />
       )}
-      
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
-    </motion.div>
+    </div>
   );
 }
