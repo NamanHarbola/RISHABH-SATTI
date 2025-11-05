@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Sparkles, TrendingUp, Award, ChevronDown } from 'lucide-react';
+import { ArrowRight, Sparkles, TrendingUp, Award } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import HeroMedia from '../components/HeroMedia';
 import ProductCard from '../components/ProductCard';
@@ -12,14 +12,15 @@ export default function HomePage() {
   const { scrollYProgress } = useScroll();
   
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const mouseY = useTransform(scrollYProgress, [0, 0.1], [0, 20]);
 
   const featuredProducts = [
     {
       id: 1,
       name: 'Premium Leather Jacket',
       category: 'Outerwear',
-      price: 299,
-      originalPrice: 399,
+      price: 24999,
+      originalPrice: 32999,
       image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80',
       badge: 'New',
       colors: ['#1a202c', '#4a5568', '#2d3748'],
@@ -28,7 +29,7 @@ export default function HomePage() {
       id: 2,
       name: 'Silk Evening Dress',
       category: 'Women',
-      price: 459,
+      price: 37999,
       image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80',
       badge: 'Trending',
       colors: ['#742a2a', '#1a202c', '#2c5282'],
@@ -37,8 +38,8 @@ export default function HomePage() {
       id: 3,
       name: 'Designer Sneakers',
       category: 'Footwear',
-      price: 189,
-      originalPrice: 249,
+      price: 15699,
+      originalPrice: 20599,
       image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80',
       colors: ['#ffffff', '#1a202c', '#9b2c2c'],
     },
@@ -46,7 +47,7 @@ export default function HomePage() {
       id: 4,
       name: 'Cashmere Sweater',
       category: 'Knitwear',
-      price: 279,
+      price: 23099,
       image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80',
       badge: 'Bestseller',
       colors: ['#c6977f', '#744210', '#1a202c'],
@@ -141,18 +142,43 @@ export default function HomePage() {
           </div>
         </div>
         
-        {/* Scroll Indicator */}
+        {/* Smooth Scroll Indicator with Mouse */}
         <motion.div
-          style={{ opacity }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          style={{ opacity, y: mouseY }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
         >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="flex flex-col items-center text-white/80"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="flex flex-col items-center text-white/90"
           >
-            <span className="text-xs mb-2">Scroll to explore</span>
-            <ChevronDown className="w-6 h-6" />
+            <span className="text-sm mb-3 font-medium tracking-wide">Scroll to explore</span>
+            {/* Animated Mouse */}
+            <motion.div
+              animate={{
+                y: [0, 8, 0],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="w-7 h-11 border-2 border-white/60 rounded-full flex items-start justify-center p-2 backdrop-blur-sm bg-white/5"
+            >
+              <motion.div
+                animate={{
+                  y: [0, 12, 0],
+                  opacity: [1, 0.3, 1],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="w-1.5 h-3 bg-white rounded-full"
+              />
+            </motion.div>
           </motion.div>
         </motion.div>
       </section>
