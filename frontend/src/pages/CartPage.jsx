@@ -44,8 +44,66 @@ export default function CartPage() {
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const shipping = subtotal > 5000 ? 0 : 99;
-  const tax = subtotal * 0.18; // 18% GST
-  const total = subtotal + shipping + tax;
+  
+  // Calculate discount
+  let discount = 0;
+  if (appliedCoupon) {
+    if (appliedCoupon.type === 'percentage') {
+      discount = (subtotal * appliedCoupon.value) / 100;
+      if (appliedCoupon.maxDiscount && discount > appliedCoupon.maxDiscount) {
+        discount = appliedCoupon.maxDiscount;
+      }
+    } else {
+      discount = appliedCoupon.value;
+    }
+  }
+  
+  const tax = (subtotal - discount) * 0.18; // 18% GST
+  const total = subtotal - discount + shipping + tax;
+
+  const applyCoupon = () => {
+    if (!couponCode.trim()) {
+      setCouponError('Please enter a coupon code');
+      return;
+    }
+
+    const coupons = JSON.parse(localStorage.getItem('coupons') || '[]');
+    const coupon = coupons.find(c => c.code.toUpperCase() === couponCode.toUpperCase());
+
+    if (!coupon) {
+      setCouponError('Invalid coupon code');
+      return;
+    }
+
+    // Check if expired
+    if (coupon.expiryDate && new Date(coupon.expiryDate) < new Date()) {
+      setCouponError('This coupon has expired');
+      return;
+    }
+
+    // Check usage limit
+    if (coupon.usageLimit && coupon.usedCount >= coupon.usageLimit) {
+      setCouponError('This coupon has reached its usage limit');
+      return;
+    }
+
+    // Check minimum order
+    if (coupon.minOrder && subtotal < coupon.minOrder) {
+      setCouponError(`Minimum order of ₹${coupon.minOrder} required`);
+      return;
+    }
+
+    setAppliedCoupon(coupon);
+    setCouponError('');
+    toast.success('Coupon applied successfully!');
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponCode('');
+    setCouponError('');
+    toast.info('Coupon removed');
+  };
 
   const handleCheckout = () => {
     if (cartItems.length === 0) {
