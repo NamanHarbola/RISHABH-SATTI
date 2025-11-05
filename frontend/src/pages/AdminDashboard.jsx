@@ -99,9 +99,15 @@ export default function AdminDashboard() {
         return;
       }
 
-      // Validate file size (max 50MB)
-      if (file.size > 50 * 1024 * 1024) {
-        toast.error('File size must be less than 50MB');
+      // Different size limits for images and videos
+      const maxSize = isVideo ? 5 * 1024 * 1024 : 10 * 1024 * 1024; // 5MB for video, 10MB for images
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+      
+      if (file.size > maxSize) {
+        toast.error(
+          `File too large! ${isVideo ? 'Videos' : 'Images'} must be under ${isVideo ? '5MB' : '10MB'}. Your file: ${sizeMB}MB. Please compress it first.`,
+          { duration: 5000 }
+        );
         return;
       }
 
@@ -116,7 +122,15 @@ export default function AdminDashboard() {
       reader.onloadend = () => {
         setHeroPreview(reader.result);
       };
+      reader.onerror = () => {
+        toast.error('Failed to read file. Please try again.');
+      };
       reader.readAsDataURL(file);
+      
+      // Show helpful message for large files
+      if (file.size > 3 * 1024 * 1024) {
+        toast.warning('Large file detected. This may take a moment to save...', { duration: 3000 });
+      }
     }
   };
 
