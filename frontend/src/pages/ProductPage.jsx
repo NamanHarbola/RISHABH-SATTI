@@ -15,28 +15,53 @@ export default function ProductPage() {
   const [selectedColor, setSelectedColor] = useState('#1a202c');
   const [quantity, setQuantity] = useState(1);
   const [isLiked, setIsLiked] = useState(false);
+  const [product, setProduct] = useState(null);
 
-  const product = {
-    name: 'Premium Designer T-Shirt',
-    price: 10699,
-    originalPrice: 14799,
-    rating: 4.8,
-    reviews: 248,
-    description: 'Experience unparalleled comfort with our premium designer t-shirt. Crafted from the finest organic cotton, this piece combines luxury with sustainability.',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'Navy', value: '#1a202c' },
-      { name: 'Burgundy', value: '#9b2c2c' },
-      { name: 'Forest', value: '#276749' },
-      { name: 'Charcoal', value: '#2d3748' },
-    ],
-    features: [
-      '100% Organic Cotton',
-      'Premium Quality Fabric',
-      'Sustainable Production',
-      'Perfect Fit Guarantee',
-    ],
-  };
+  useEffect(() => {
+    // Try to get product from localStorage first (from clicked product)
+    const savedProduct = localStorage.getItem(`product_${id}`);
+    
+    if (savedProduct) {
+      const productData = JSON.parse(savedProduct);
+      setProduct(productData);
+      if (productData.colors && productData.colors.length > 0) {
+        setSelectedColor(productData.colors[0]);
+      }
+    } else {
+      // Fallback to default product data
+      setProduct({
+        name: 'Premium Designer T-Shirt',
+        price: 10699,
+        originalPrice: 14799,
+        rating: 4.8,
+        reviews: 248,
+        description: 'Experience unparalleled comfort with our premium designer t-shirt. Crafted from the finest organic cotton, this piece combines luxury with sustainability.',
+        sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        colors: [
+          { name: 'Navy', value: '#1a202c' },
+          { name: 'Burgundy', value: '#9b2c2c' },
+          { name: 'Forest', value: '#276749' },
+          { name: 'Charcoal', value: '#2d3748' },
+        ],
+        features: [
+          '100% Organic Cotton',
+          'Premium Quality Fabric',
+          'Sustainable Production',
+          'Perfect Fit Guarantee',
+        ],
+        category: 'Fashion',
+        image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80',
+      });
+    }
+  }, [id]);
+
+  if (!product) {
+    return (
+      <div className="min-h-screen pt-20 flex items-center justify-center">
+        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   const handleAddToCart = () => {
     // Get existing cart
