@@ -65,23 +65,50 @@ export default function AdminDashboard() {
       // Convert file to base64 for storage
       const reader = new FileReader();
       reader.onloadend = () => {
-        const contentToSave = {
-          type: heroContent.type,
-          url: reader.result,
-          alt: heroContent.alt
-        };
-        localStorage.setItem('heroContent', JSON.stringify(contentToSave));
-        toast.success('Hero content updated successfully!');
-        setIsHeroDialogOpen(false);
-        setHeroFile(null);
-        setHeroPreview('');
+        try {
+          const contentToSave = {
+            type: heroContent.type,
+            url: reader.result,
+            alt: heroContent.alt
+          };
+          
+          // Try to save to localStorage
+          localStorage.setItem('heroContent', JSON.stringify(contentToSave));
+          toast.success('Hero content updated successfully!');
+          setIsHeroDialogOpen(false);
+          setHeroFile(null);
+          setHeroPreview('');
+          
+          // Reload hero content
+          const savedHero = localStorage.getItem('heroContent');
+          if (savedHero) {
+            setHeroContent(JSON.parse(savedHero));
+          }
+        } catch (error) {
+          console.error('Save error:', error);
+          if (error.name === 'QuotaExceededError') {
+            toast.error(
+              'File too large for browser storage! Please use a smaller file (under 5MB for videos, 10MB for images) or compress it.',
+              { duration: 7000 }
+            );
+          } else {
+            toast.error('Failed to save. Please try a smaller file.');
+          }
+        }
+      };
+      reader.onerror = () => {
+        toast.error('Failed to read file. Please try again.');
       };
       reader.readAsDataURL(heroFile);
     } else if (heroPreview) {
       // Use existing preview (already uploaded)
-      localStorage.setItem('heroContent', JSON.stringify(heroContent));
-      toast.success('Hero content updated successfully!');
-      setIsHeroDialogOpen(false);
+      try {
+        localStorage.setItem('heroContent', JSON.stringify(heroContent));
+        toast.success('Hero content updated successfully!');
+        setIsHeroDialogOpen(false);
+      } catch (error) {
+        toast.error('Failed to save. Storage quota exceeded.');
+      }
     } else {
       toast.error('Please upload an image or video');
     }
