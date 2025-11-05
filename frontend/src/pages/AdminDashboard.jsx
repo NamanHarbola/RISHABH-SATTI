@@ -15,7 +15,9 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isHeroDialogOpen, setIsHeroDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [heroContent, setHeroContent] = useState({ type: 'image', url: '', alt: '' });
   const [formData, setFormData] = useState({
     name: '',
     category: '',
