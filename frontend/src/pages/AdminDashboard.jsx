@@ -42,6 +42,12 @@ export default function AdminDashboard() {
     if (savedProducts) {
       setProducts(JSON.parse(savedProducts));
     }
+
+    // Load hero content
+    const savedHero = localStorage.getItem('heroContent');
+    if (savedHero) {
+      setHeroContent(JSON.parse(savedHero));
+    }
   }, [navigate]);
 
   const saveProducts = (updatedProducts) => {
