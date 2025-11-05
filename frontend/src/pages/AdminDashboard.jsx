@@ -55,6 +55,12 @@ export default function AdminDashboard() {
     setProducts(updatedProducts);
   };
 
+  const saveHeroContent = () => {
+    localStorage.setItem('heroContent', JSON.stringify(heroContent));
+    toast.success('Hero content updated successfully!');
+    setIsHeroDialogOpen(false);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('isAdminAuthenticated');
     toast.success('Logged out successfully');
