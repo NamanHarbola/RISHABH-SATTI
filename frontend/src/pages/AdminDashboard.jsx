@@ -58,9 +58,63 @@ export default function AdminDashboard() {
   };
 
   const saveHeroContent = () => {
-    localStorage.setItem('heroContent', JSON.stringify(heroContent));
-    toast.success('Hero content updated successfully!');
-    setIsHeroDialogOpen(false);
+    if (heroFile) {
+      // Convert file to base64 for storage
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const contentToSave = {
+          type: heroContent.type,
+          url: reader.result,
+          alt: heroContent.alt
+        };
+        localStorage.setItem('heroContent', JSON.stringify(contentToSave));
+        toast.success('Hero content updated successfully!');
+        setIsHeroDialogOpen(false);
+        setHeroFile(null);
+        setHeroPreview('');
+      };
+      reader.readAsDataURL(heroFile);
+    } else if (heroPreview) {
+      // Use existing preview (already uploaded)
+      localStorage.setItem('heroContent', JSON.stringify(heroContent));
+      toast.success('Hero content updated successfully!');
+      setIsHeroDialogOpen(false);
+    } else {
+      toast.error('Please upload an image or video');
+    }
+  };
+
+  const handleHeroFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      const isVideo = file.type.startsWith('video/');
+      const isImage = file.type.startsWith('image/');
+      
+      if (!isVideo && !isImage) {
+        toast.error('Please upload an image or video file');
+        return;
+      }
+
+      // Validate file size (max 50MB)
+      if (file.size > 50 * 1024 * 1024) {
+        toast.error('File size must be less than 50MB');
+        return;
+      }
+
+      setHeroFile(file);
+      setHeroContent({
+        ...heroContent,
+        type: isVideo ? 'video' : 'image'
+      });
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setHeroPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleLogout = () => {
