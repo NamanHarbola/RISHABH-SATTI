@@ -240,42 +240,45 @@ export default function AdminDashboard() {
         <Card className="mb-8">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Hero Content Management</CardTitle>
-            <Dialog open={isHeroDialogOpen} onOpenChange={setIsHeroDialogOpen}>
+            <Dialog open={isHeroDialogOpen} onOpenChange={(open) => {
+              setIsHeroDialogOpen(open);
+              if (!open) {
+                setHeroFile(null);
+                setHeroPreview('');
+              }
+            }}>
               <DialogTrigger asChild>
                 <Button variant="outline">
                   <Edit className="w-4 h-4 mr-2" />
                   Edit Hero
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="max-w-2xl">
                 <DialogHeader>
                   <DialogTitle>Edit Hero Content</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="heroType">Content Type</Label>
-                    <Select value={heroContent.type} onValueChange={(value) => setHeroContent({ ...heroContent, type: value })}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="image">Image</SelectItem>
-                        <SelectItem value="video">Video</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="heroUrl">{heroContent.type === 'video' ? 'Video' : 'Image'} URL</Label>
-                    <Input
-                      id="heroUrl"
-                      value={heroContent.url}
-                      onChange={(e) => setHeroContent({ ...heroContent, url: e.target.value })}
-                      placeholder="https://..."
-                    />
+                    <Label htmlFor="heroFile">Upload Image or Video</Label>
+                    <div className="flex items-center gap-4">
+                      <Input
+                        id="heroFile"
+                        type="file"
+                        accept="image/*,video/mp4,video/webm"
+                        onChange={handleHeroFileChange}
+                        className="cursor-pointer"
+                      />
+                      {heroFile && (
+                        <span className="text-sm text-muted-foreground">
+                          {(heroFile.size / (1024 * 1024)).toFixed(2)} MB
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs text-muted-foreground">
-                      {heroContent.type === 'video' ? 'Enter direct video URL (.mp4)' : 'Enter image URL from Unsplash or similar'}
+                      Supported: Images (JPG, PNG, WebP) and Videos (MP4, WebM). Max 50MB.
                     </p>
                   </div>
+                  
                   {heroContent.type === 'image' && (
                     <div className="space-y-2">
                       <Label htmlFor="heroAlt">Alt Text</Label>
@@ -287,23 +290,25 @@ export default function AdminDashboard() {
                       />
                     </div>
                   )}
-                  {heroContent.url && (
+                  
+                  {heroPreview && (
                     <div className="space-y-2">
                       <Label>Preview</Label>
-                      <div className="w-full h-48 rounded-lg overflow-hidden bg-muted">
+                      <div className="w-full h-64 rounded-lg overflow-hidden bg-muted">
                         {heroContent.type === 'video' ? (
-                          <video src={heroContent.url} className="w-full h-full object-cover" muted />
+                          <video src={heroPreview} className="w-full h-full object-cover" controls />
                         ) : (
-                          <img src={heroContent.url} alt="Preview" className="w-full h-full object-cover" />
+                          <img src={heroPreview} alt="Preview" className="w-full h-full object-cover" />
                         )}
                       </div>
                     </div>
                   )}
+                  
                   <div className="flex gap-2 justify-end pt-4">
                     <Button variant="outline" onClick={() => setIsHeroDialogOpen(false)}>
                       Cancel
                     </Button>
-                    <Button onClick={saveHeroContent}>
+                    <Button onClick={saveHeroContent} disabled={!heroFile && !heroPreview}>
                       Save Hero Content
                     </Button>
                   </div>
@@ -335,8 +340,8 @@ export default function AdminDashboard() {
                   <p className="text-sm text-muted-foreground capitalize">{heroContent.type || 'Not set'}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium">URL</p>
-                  <p className="text-sm text-muted-foreground break-all">{heroContent.url || 'Not set'}</p>
+                  <p className="text-sm font-medium">Status</p>
+                  <p className="text-sm text-muted-foreground">{heroContent.url ? 'Active' : 'Not configured'}</p>
                 </div>
                 {heroContent.type === 'image' && heroContent.alt && (
                   <div>
@@ -344,6 +349,17 @@ export default function AdminDashboard() {
                     <p className="text-sm text-muted-foreground">{heroContent.alt}</p>
                   </div>
                 )}
+                <div className="pt-4 space-y-2">
+                  <p className="text-xs text-muted-foreground">
+                    • Images appear as background on hero section
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    • Videos auto-play on loop with play/pause control
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    • Recommended: High-resolution images (1920x1080 or higher)
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>
