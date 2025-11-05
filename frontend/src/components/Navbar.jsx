@@ -94,14 +94,52 @@ export default function Navbar() {
               <Button variant="ghost" size="icon" className="hidden sm:flex">
                 <Search className="w-5 h-5" />
               </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hidden sm:flex"
-                onClick={() => navigate('/admin/login')}
-              >
-                <User className="w-5 h-5" />
-              </Button>
+              
+              {/* User Authentication */}
+              {currentUser ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="hidden sm:flex">
+                      <img
+                        src={currentUser.picture}
+                        alt={currentUser.name}
+                        className="w-8 h-8 rounded-full"
+                      />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <div className="px-2 py-2">
+                      <p className="text-sm font-medium">{currentUser.name}</p>
+                      <p className="text-xs text-muted-foreground">{currentUser.email}</p>
+                    </div>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate('/orders')}>
+                      My Orders
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/wishlist')}>
+                      Wishlist
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/admin/login')}>
+                      Admin Panel
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hidden sm:flex"
+                  onClick={() => setIsAuthDialogOpen(true)}
+                >
+                  <User className="w-5 h-5" />
+                </Button>
+              )}
+              
               <Button
                 variant="ghost"
                 size="icon"
@@ -135,6 +173,12 @@ export default function Navbar() {
           </div>
         </div>
       </motion.nav>
+
+      {/* User Auth Dialog */}
+      <UserAuthDialog
+        isOpen={isAuthDialogOpen}
+        onClose={() => setIsAuthDialogOpen(false)}
+      />
 
       {/* Mobile Menu */}
       <AnimatePresence>
