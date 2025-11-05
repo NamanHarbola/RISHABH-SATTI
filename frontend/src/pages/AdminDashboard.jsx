@@ -529,6 +529,25 @@ export default function AdminDashboard() {
                     />
                   </div>
 
+                  <div className="space-y-2">
+                    <Label htmlFor="model3D">3D Model (Optional)</Label>
+                    <Input
+                      id="model3D"
+                      type="file"
+                      accept=".glb,.gltf"
+                      onChange={handle3DModelChange}
+                      className="cursor-pointer"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Upload GLB or GLTF file for 3D preview. Max 10MB. Customers can rotate and view it.
+                    </p>
+                    {formData.model3D && (
+                      <p className="text-xs text-secondary font-medium">
+                        \u2714 {formData.model3D.name} selected
+                      </p>
+                    )}
+                  </div>
+
                   <div className="flex gap-2 justify-end pt-4">
                     <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                       Cancel
