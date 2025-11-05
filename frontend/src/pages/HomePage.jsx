@@ -111,7 +111,7 @@ export default function HomePage() {
               >
                 Redefining
                 <br />
-                <span className="gradient-text-gold">Luxury Fashion</span>
+                <span className="gradient-text-green">Luxury Fashion</span>
               </motion.h1>
               
               <motion.p
