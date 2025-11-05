@@ -367,7 +367,10 @@ export default function AdminDashboard() {
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Supported: Images (JPG, PNG, WebP) and Videos (MP4, WebM, OGG). Max 50MB.
+                      Supported: Images (JPG, PNG, WebP) max 10MB | Videos (MP4, WebM, OGG) max 5MB
+                    </p>
+                    <p className="text-xs text-amber-600 font-medium">
+                      ⚠️ For larger videos, compress them first using tools like HandBrake or FFmpeg
                     </p>
                     {heroFile && (
                       <div className="text-xs space-y-1">
